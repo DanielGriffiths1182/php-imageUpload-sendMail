@@ -8,6 +8,7 @@
     </head>
     <body>
 
+<!-- TITLE -->
         <div class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
@@ -16,6 +17,7 @@
             </div>
         </div>
 
+<!-- LIST UPLOADED FILES -->
         <div class="container">
         	 <div class="row">
       	       <?php
@@ -39,6 +41,7 @@
       	       ?>
         	  </div>
 
+<!-- FILE UPLOAD SECTION -->
     	      <div class="row">
             	  <div class="col-lg-12">
         	          <form class="well" action="upload.php" method="post" enctype="multipart/form-data">
@@ -52,6 +55,8 @@
                 </div>
         	  </div>
         </div>
+
+<!-- NOTE INCOMPLETE MAILING PROCESS-->
         <?php
             if ($_SERVER['REQUEST_METHOD'] == 'POST')
             {	// Form was submitted, do some checks and if it passes send the email
@@ -173,6 +178,8 @@
             	}
            }
         ?>
+
+<!-- EMAIL FORM -->
         <div class="container">
             <div class="row">
           	<form method="post" class="well" enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF'];?>" name="frmApplication" id="frmApplication">
