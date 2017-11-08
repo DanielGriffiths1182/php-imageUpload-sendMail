@@ -68,40 +68,43 @@
       	$successLog = "";		// Get some details on what went through
 
       	// Sanitize the inputs
-      	foreach ( $_POST as $formName => $formValue )
-      	{	if ( is_array($formValue) )
-      		{	foreach ( $formValue as $formName2 => $formValue2 )	{	$request[$formName][$formName2] = htmlspecialchars(strip_tags($formValue2));	}	}
-        	else
-      		{	$request[$formName] = htmlspecialchars(strip_tags($formValue));	}
+      	foreach ( $_POST as $formName => $formValue ) {
+          if ( is_array($formValue) ) {
+            foreach ( $formValue as $formName2 => $formValue2 )	{	$request[$formName][$formName2] = htmlspecialchars(strip_tags($formValue2));	}
+          }
+        	else {
+            $request[$formName] = htmlspecialchars(strip_tags($formValue));
+          }
       	}
 
       	// Validate required form fields
-      	foreach ( $request as $name => $value )
-      	{	$displayName = str_replace("_", " ", $name);
+      	foreach ( $request as $name => $value ) {
+          $displayName = str_replace("_", " ", $name);
       		// Is this a required value, if so and it's empty track the errors
-      		if ( !is_array($value) )
-      		{	if ( in_array( $name, $required ) && strlen($value) < 1 )
-      			{	$errors++;
+      		if ( !is_array($value) ) {
+            if ( in_array( $name, $required ) && strlen($value) < 1 ) {
+              $errors++;
       				$errorLog .= "The field <strong>".$displayName."</strong> is required.<br />";
       			}
       		}
-      		if ( $name == "Email" && !filter_var($value, FILTER_VALIDATE_EMAIL) )
-      		{	$errors++;
+      		if ( $name == "Email" && !filter_var($value, FILTER_VALIDATE_EMAIL) ) {
+            $errors++;
       			$errorLog .= "The field <strong>".$displayName."</strong> must be a valid email address.<br />";
       		}
       	}
 
-      	if ( $errors == 0 )
-      	{	// Validation passed, get the email ready to send
+      	if ( $errors == 0 ) {	// Validation passed, get the email ready to send
       		$toEmail = "danielgriffiths.coding@yahoo.com";
       		$subject = "Form Submission from ".$request["First_Name"]." ".$request["Last_Name"];
 
       		unset ( $request["submit"] );
 
       		$message .= "Following is an application submitted<br /><br />\n\n<table>";
-      		foreach ( $request as $name => $value )
-      		{	$displayName = str_replace("_", " ", $name);
-      			if ( is_array($value) ) {	$value = implode(", ", $value);	}
+      		foreach ( $request as $name => $value ) {
+            $displayName = str_replace("_", " ", $name);
+      			if ( is_array($value) ) {
+              $value = implode(", ", $value);
+            }
       			$message .= "\n<tr><th align='right' valign='top'><strong>".$displayName."</strong>:</th><td valign='top'>".$value."</td></tr>";
       		}
       		$message .= "</table><br /><br />\n\nSubmitted on ".date("F j, Y, g:i a");
@@ -134,24 +137,22 @@
       ";
       		$headers .= "".$message."\n";
 
-      		if ( strlen($_FILES['File']['name']) > 0 )
-      		{	// If a file was uploaded, do some processing
+      		if ( strlen($_FILES['File']['name']) > 0 ) {	// If a file was uploaded, do some processing
       			$filename = preg_replace('/[^a-zA-Z0-9._-]/', '', $_FILES['File']['name']);
       			$filetype = $_FILES["File"]["type"];
       			$filesize = $_FILES["File"]["size"];
       			$filetemp = $_FILES["File"]["tmp_name"];
       			$ext = substr($filename, strpos($filename,'.'), strlen($filename)-1);
 
-      			if ( !preg_match('/\.(jpg|jpeg|png|gif)/i', $ext) )
-      			{	$errors++;
+      			if ( !preg_match('/\.(jpg|jpeg|png|gif)/i', $ext) ) {
+              $errors++;
       				$errorLog .= "Upload filetype not supported.";
       			}
-      			else if ( $filesize > 2000000 )
-      			{	$errors++;
+      			else if ( $filesize > 2000000 ) {
+              $errors++;
       				$errorLog .= "File size too high, up to 2MB is allowed.";
       			}
-      			else
-      			{	// Looks like the file is good, send it with the email
+      			else {	// Looks like the file is good, send it with the email
       				$fp = fopen($filetemp, "rb");
       				$file = fread($fp, $filesize);
       				$file = chunk_split(base64_encode($file));
@@ -168,11 +169,13 @@
 
       			}
       		}
-      		if ( $errors == 0 )
-      		{	if ( mail( $toEmail, $subject, "", $headers ))
-      			{	$successLog .= "<b>Thank you for your interest<br />Your form has been submitted.</b>";	}
-      			else
-      			{	$errorLog .= "Message failed to send, please refresh to try again";	}
+      		if ( $errors == 0 ) {
+            if ( mail( $toEmail, $subject, "", $headers )) {
+              $successLog .= "<b>Thank you for your interest<br />Your form has been submitted.</b>";
+            }
+      			else {
+              $errorLog .= "Message failed to send, please refresh to try again";
+            }
       			// Send email
       		}
       	}
