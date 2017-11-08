@@ -111,30 +111,21 @@
 
       		//Normal headers
       		$num = md5(time());
-      		$headers  = "From: Mailer <noreply@sample.com>
-      ";
-      		$headers .= "Reply-to: ".$request["First_Name"]." ".$request["Last_Name"]." <".$request["Email"].">
-      ";
-      		$headers .= "MIME-Version: 1.0
-      ";
-      		$headers .= "Content-Type: multipart/alternative; boundary=".$num."
-      ";
+      		$headers  = "From: Mailer <noreply@sample.com>";
+      		$headers .= "Reply-to: ".$request["First_Name"]." ".$request["Last_Name"]." <".$request["Email"].">";
+      		$headers .= "MIME-Version: 1.0";
+      		$headers .= "Content-Type: multipart/alternative; boundary=".$num."";
       		// These two steps to help avoid spam
-      		$headers .= "Message-ID: <".gettimeofday()." TheSystem@".$_SERVER['SERVER_NAME'].">
-      ";
-      		$headers .= "X-Mailer: PHP v".phpversion()."
-      ";
+      		$headers .= "Message-ID: <".gettimeofday()." TheSystem@".$_SERVER['SERVER_NAME'].">";
+      		$headers .= "X-Mailer: PHP v".phpversion()."";
       		// Text version
       		$headers .= "\n--".$num."\n";
-      		$headers .= "Content-Type: text/plain; charset=iso-8859-1
-      ";
-      		$headers .= "Content-Transfer-Encoding: 8bit
-      ";
+      		$headers .= "Content-Type: text/plain; charset=iso-8859-1";
+      		$headers .= "Content-Transfer-Encoding: 8bit";
       		$headers .= "".strip_tags($message)."\n";
       		// HTML message
       		$headers .= "\n--".$num."\n";
-      		$headers .= "Content-Type: text/html; charset=iso-8859-1
-      ";
+      		$headers .= "Content-Type: text/html; charset=iso-8859-1";
       		$headers .= "".$message."\n";
 
       		if ( strlen($_FILES['File']['name']) > 0 ) {	// If a file was uploaded, do some processing
@@ -162,10 +153,8 @@
       				$headers .= "Content-Type:".$filetype." ";
       				$headers .= "name=\"".$filename."\"r\n";
       				$headers .= "Content-Disposition: attachment; ";
-      				$headers .= "filename=\"".$filename."\"
-      \n";
-      				$headers .= "".$file."
-      ";
+      				$headers .= "filename=\"".$filename."\"\n";
+      				$headers .= "".$file."";
 
       			}
       		}
