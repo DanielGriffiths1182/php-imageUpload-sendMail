@@ -1,6 +1,6 @@
-# TODO
-1. Figure out why GitHub does odd indentations with format in various files
-2. Complete email mailing form
-3. Style further
+# Image Upload and Custom Crop
 
-# Image Upload and Email Form
+# TODO 
+1. Finish integrating custom size image cropping, push to GitHub
+2. Style
+
