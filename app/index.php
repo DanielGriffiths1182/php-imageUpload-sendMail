@@ -32,7 +32,8 @@
 		       		<div class="thumbnail">
 			       		 <img src="'.$folder . '/' . $result.'" alt="...">
 				       		 <div class="caption">
-				       		 <p><a href="remove.php?name='.$result.'" class="btn btn-danger btn-xs" role="button">Remove</a></p>
+				       		 <p><a href="remove.php?name='.$result.'" class="btn btn-danger btn-xs" role="button">Remove</a>
+                   <a href="crop.php?name='.$result.'" class="btn btn-danger btn-xs" role="button">Crop</a></p>
 			       		 </div>
 		       	   </div>
 	       	   </div>';
